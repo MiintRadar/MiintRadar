@@ -27,7 +27,8 @@ const getUserData = (userId) => {
             referralId: Math.random().toString(36).substring(7),
             totalBonus: 0,
             totalTrades: 0,
-            totalVolume: 0
+            totalVolume: 0,
+            waitingFor: null
         };
         for (let i = 0; i < 5; i++) {
             const kp = Keypair.generate();
@@ -234,16 +235,20 @@ const sendSettingsMenu = async (chatId, userId) => {
 📊 Slippage: ${userData.settings.slippage}%
 💸 Priority Fee: ${userData.settings.priorityFee} SOL
 
-Select slippage:`;
+Select slippage (0-100%):`;
 
     const kb = {
         inline_keyboard: [
-            [{ text: userData.settings.slippage === 5 ? "✅ 5%" : "5%", callback_data: "set_slip_5" }, 
-             { text: userData.settings.slippage === 10 ? "✅ 10%" : "10%", callback_data: "set_slip_10" }, 
-             { text: userData.settings.slippage === 15 ? "✅ 15%" : "15%", callback_data: "set_slip_15" }],
-            [{ text: userData.settings.slippage === 20 ? "✅ 20%" : "20%", callback_data: "set_slip_20" }, 
-             { text: userData.settings.slippage === 25 ? "✅ 25%" : "25%", callback_data: "set_slip_25" }, 
-             { text: userData.settings.slippage === 30 ? "✅ 30%" : "30%", callback_data: "set_slip_30" }],
+            [{ text: userData.settings.slippage === 1 ? "✅ 1%" : "1%", callback_data: "set_slip_1" }, 
+             { text: userData.settings.slippage === 3 ? "✅ 3%" : "3%", callback_data: "set_slip_3" }, 
+             { text: userData.settings.slippage === 5 ? "✅ 5%" : "5%", callback_data: "set_slip_5" }],
+            [{ text: userData.settings.slippage === 10 ? "✅ 10%" : "10%", callback_data: "set_slip_10" }, 
+             { text: userData.settings.slippage === 15 ? "✅ 15%" : "15%", callback_data: "set_slip_15" }, 
+             { text: userData.settings.slippage === 20 ? "✅ 20%" : "20%", callback_data: "set_slip_20" }],
+            [{ text: userData.settings.slippage === 25 ? "✅ 25%" : "25%", callback_data: "set_slip_25" }, 
+             { text: userData.settings.slippage === 30 ? "✅ 30%" : "30%", callback_data: "set_slip_30" }, 
+             { text: userData.settings.slippage === 50 ? "✅ 50%" : "50%", callback_data: "set_slip_50" }],
+            [{ text: "✏️ Custom (0-100)", callback_data: "set_slip_custom" }],
             [{ text: "💸 0.001", callback_data: "set_fee_0.001" }, 
              { text: "💸 0.005", callback_data: "set_fee_0.005" }, 
              { text: "💸 0.01", callback_data: "set_fee_0.01" }],
@@ -423,7 +428,22 @@ const poll = async () => {
 
                 if (upd.message?.text) {
                     const txt = upd.message.text.trim();
-                    if (txt === '/start' || txt === '/menu') await sendMainMenu(cid, uid);
+                    
+                    // Check if waiting for custom input
+                    const userData = getUserData(uid);
+                    if (userData.waitingFor === 'custom_slippage') {
+                        const val = parseFloat(txt);
+                        if (!isNaN(val) && val >= 0 && val <= 100) {
+                            userData.settings.slippage = Math.round(val);
+                            userData.waitingFor = null;
+                            saveUserData(uid, userData);
+                            await postToTG('sendMessage', { chat_id: cid, text: `✅ Slippage set to ${Math.round(val)}%` });
+                            await sendSettingsMenu(cid, uid);
+                        } else {
+                            await postToTG('sendMessage', { chat_id: cid, text: `❌ Invalid number. Enter a value between 0 and 100.` });
+                        }
+                    }
+                    else if (txt === '/start' || txt === '/menu') await sendMainMenu(cid, uid);
                     else if (txt === '/wallets') await sendWalletMenu(cid, uid);
                     else if (txt === '/settings') await sendSettingsMenu(cid, uid);
                     else if (txt === '/ref') await sendReferralMenu(cid, uid);
@@ -458,12 +478,22 @@ const poll = async () => {
                         await postToTG('sendMessage', { chat_id: cid, text: `🔑 W${idx} Key:\n\n${wallet.secretKey}\n\n⚠️ Keep safe!` });
                     }
                     else if (data.startsWith('set_slip_')) {
-                        const val = parseInt(data.split('_')[2]);
-                        const userData = getUserData(uid);
-                        userData.settings.slippage = val;
-                        saveUserData(uid, userData);
-                        await postToTG('answerCallbackQuery', { callback_query_id: upd.callback_query.id, text: `✅ ${val}%` });
-                        await sendSettingsMenu(cid, uid);
+                        const valStr = data.split('_')[2];
+                        if (valStr === 'custom') {
+                            const userData = getUserData(uid);
+                            userData.waitingFor = 'custom_slippage';
+                            saveUserData(uid, userData);
+                            await postToTG('answerCallbackQuery', { callback_query_id: upd.callback_query.id });
+                            await postToTG('sendMessage', { chat_id: cid, text: `✏️ Enter custom slippage (0-100):\n\nJust type a number like: 7` });
+                        } else {
+                            const val = parseInt(valStr);
+                            const userData = getUserData(uid);
+                            userData.settings.slippage = val;
+                            userData.waitingFor = null;
+                            saveUserData(uid, userData);
+                            await postToTG('answerCallbackQuery', { callback_query_id: upd.callback_query.id, text: `✅ ${val}%` });
+                            await sendSettingsMenu(cid, uid);
+                        }
                     }
                     else if (data.startsWith('set_fee_')) {
                         const val = parseFloat(data.split('_')[2]);
