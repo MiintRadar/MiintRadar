@@ -1,0 +1,80 @@
+{
+  "8081265682": {
+    "wallets": [
+      {
+        "index": 1,
+        "publicKey": "B33rYWP8MU7xSkDYPQntgHPfdYhQGqPfgCS7FDgj66QY",
+        "secretKey": "3NksbL5bFqfwW32pctc4gZiDjHTQmJ6JVNR7NomEW5pzs2qnUuG7W2KFL6dku8qqYzqKyN27Fww5mkCybLDzsWhE",
+        "active": true
+      },
+      {
+        "index": 2,
+        "publicKey": "EP9h7duXUwhgMGiQNM8aC1gCKzyf2YV44NWWPKEhTMfk",
+        "secretKey": "54uLxpPzyAvX32Tv8J7Nxtmufzo4EQtoTHR2Hpayaqi5BLAi3ryYd2z5bktAqy8ezW5mP2FJttvN49D5Y62HAFqg",
+        "active": false
+      },
+      {
+        "index": 3,
+        "publicKey": "hFB52128R5W4w5YitkVPGM2LdVLTfj9moFPS6tFPXUv",
+        "secretKey": "4VRouJCWKWrmqMuefumMt9wFaCiiSAfZUd5m3JjJcGMrXYRRhtVjUserrMHTuNXv8wKRbagEgFJCaNSS5xXsPEMG",
+        "active": false
+      },
+      {
+        "index": 4,
+        "publicKey": "31KYpknpxMVLFsJa6evdmadykvfjXdZbgbdStFLGR13s",
+        "secretKey": "2gFfSXokxtKhFSoFzt938NQxHhD367MU8o4CkDQwcgEAuHP6XcnW4rhxKhXNgFseEysQ1wuiyZKNGdZm33ARbtmb",
+        "active": false
+      },
+      {
+        "index": 5,
+        "publicKey": "7U6ma5q3G1idJPqRTNjg2NPeJf5eQyD4C24JtREtJ64n",
+        "secretKey": "67a7wirtxCQu3viGTmS4RDhaNadJttwPkbVgmPoLsCiwSQAjVw4JqhevZRKP2TFsLxYTofy5bGLHsxnuLfYHy38A",
+        "active": false
+      }
+    ],
+    "settings": {
+      "slippage": 15,
+      "priorityFee": 0.001
+    },
+    "positions": []
+  },
+  "8281586997": {
+    "wallets": [
+      {
+        "index": 1,
+        "publicKey": "CXEgGoPGMt64SBxYncDRPgdNXjvGdDoCWPhLG3XQq1uQ",
+        "secretKey": "5pgUm3u723dDr43MUqEJiHF1UMTqkrVJezkHWmf9fUMmZtvuAX2pCyiPrhjfPEAvFyuSYe2MABrturTf77eBefPt",
+        "active": true
+      },
+      {
+        "index": 2,
+        "publicKey": "2nJ3AgFThqhvchmpkytXD5gosVbQ8izRub8N7tuMrFVU",
+        "secretKey": "r6b29mvNuY5ZkathRU3LVctQ4JtJ2HxSodQhRhHnC3Yfy5Lzx9BCcd2SG4Tj68uQR4XAqwr4uevNdytFfVnisL6",
+        "active": false
+      },
+      {
+        "index": 3,
+        "publicKey": "B76bdrSbUSVVcaBT8zJbNnTbQrtThTqXg9LD4rFjvJtG",
+        "secretKey": "p8nSz39ndArMKra56BtEFJ7Ara7N3W4ePHoXZBJcv5ePiuK1DdvRa1kg1nHU6akvRQP8JSp7WafCWHLBqLCgMqJ",
+        "active": false
+      },
+      {
+        "index": 4,
+        "publicKey": "5U6vjshTvSHaeyAHtMnTDgXrcYABcQVgyLN7UGiAgE8t",
+        "secretKey": "3dFJYoF116viUVSVDLXvWGsthRotxFPxz9A5jr28E6cjmvJzwzTbGTV1W8YghtqymfoTLcwR53CcxdkeH87w44np",
+        "active": false
+      },
+      {
+        "index": 5,
+        "publicKey": "5GHDUpQZWNhThFEEwXFvWJx5XxsMN94aANWABEdP4RNb",
+        "secretKey": "5Qc5UG7Wa6LMtfYnsizXr82o2XXw6kUfxPX2ANmzCW6VdbJS6AsTKLq5oH6m5WvJGqzWiiFEWid2hJtHtjf4ozy9",
+        "active": false
+      }
+    ],
+    "settings": {
+      "slippage": 15,
+      "priorityFee": 0.001
+    },
+    "positions": []
+  }
+}

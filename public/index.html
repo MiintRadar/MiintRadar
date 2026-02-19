@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MiintRadar Web Terminal</title>
+    <style>
+        body { background: #0e1117; color: #00ffaa; font-family: 'Courier New', monospace; padding: 20px; }
+        .terminal { border: 1px solid #00ffaa; padding: 20px; border-radius: 5px; max-width: 600px; margin: auto; }
+        .header { text-align: center; border-bottom: 1px solid #00ffaa; padding-bottom: 10px; margin-bottom: 20px; }
+        .btn { background: none; border: 1px solid #00ffaa; color: #00ffaa; padding: 10px; cursor: pointer; margin: 5px; }
+        .btn:hover { background: #00ffaa; color: #0e1117; }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="header">
+            <h1>🦀 MiintRadar Web-Lite</h1>
+            <p>Solana Trading Console</p>
+        </div>
+        <div id="content">
+            <p>> System Status: ONLINE</p>
+            <p>> Terminal Version: 1.0.0-PRO</p>
+            <hr>
+            <p>To access full trading features, please use the Telegram Bot:</p>
+            <a href="https://t.me/MiintRadarBot" style="color: white;">@MiintRadarBot</a>
+            <br><br>
+            <button class="btn" onclick="alert('Syncing with Telegram Hardware...')">Sync Wallet</button>
+        </div>
+    </div>
+</body>
+</html>
