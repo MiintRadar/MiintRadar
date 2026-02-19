@@ -1,13 +1,15 @@
+require('dotenv').config();
 const axios = require('axios');
 const { Keypair, Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } = require('@solana/web3.js');
 const bs58 = require('bs58');
 const fs = require('fs');
 
 // --- CONFIG ---
-const TELEGRAM_TOKEN = "8594929956:AAH64duWvXamKOC9ygn0kxKQNKjVkGIv0Pw";
+// Set your bot token via environment variable or replace below
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN || "YOUR_BOT_TOKEN_HERE";
+const REVENUE_WALLET = process.env.REVENUE_WALLET || "YOUR_FEE_WALLET_HERE";
 const WALLET_DB_FILE = 'users_wallets.json';
 const connection = new Connection("https://api.mainnet-beta.solana.com");
-const REVENUE_WALLET = "CFUQcUPMRVAUT2heaGpXgEcTqp3FaEzvhHdzDdws3heu";
 const JUPITER_API = "https://quote-api.jup.ag/v6";
 
 const encode = (data) => (typeof bs58.encode === 'function' ? bs58.encode(data) : bs58.default.encode(data));
