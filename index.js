@@ -221,6 +221,7 @@ const sendWalletMenu = async (chatId, userId) => {
         ]);
     }
     
+    kb.inline_keyboard.push([{ text: "➕ Create New Wallet", callback_data: "create_wallet" }]);
     kb.inline_keyboard.push([{ text: "🏠 Menu", callback_data: "menu_main" }]);
     await postToTG('sendMessage', { chat_id: chatId, text, reply_markup: kb });
 };
@@ -476,6 +477,20 @@ const poll = async () => {
                         const userData = getUserData(uid);
                         const wallet = userData.wallets.find(w => w.index === idx);
                         await postToTG('sendMessage', { chat_id: cid, text: `🔑 W${idx} Key:\n\n${wallet.secretKey}\n\n⚠️ Keep safe!` });
+                    }
+                    else if (data === 'create_wallet') {
+                        const userData = getUserData(uid);
+                        const newIndex = userData.wallets.length + 1;
+                        const kp = Keypair.generate();
+                        userData.wallets.push({
+                            index: newIndex,
+                            publicKey: kp.publicKey.toBase58(),
+                            secretKey: encode(kp.secretKey),
+                            active: false
+                        });
+                        saveUserData(uid, userData);
+                        await postToTG('answerCallbackQuery', { callback_query_id: upd.callback_query.id, text: `✅ Wallet ${newIndex} created!` });
+                        await sendWalletMenu(cid, uid);
                     }
                     else if (data.startsWith('set_slip_')) {
                         const valStr = data.split('_')[2];
