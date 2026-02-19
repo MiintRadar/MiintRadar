@@ -7,14 +7,22 @@ users_wallets.json
 *.key
 *.pem
 secrets/
+wallet.json
 
 # Logs
 *.log
 bot.log
+bot_output.log
 output.log
 
 # Dependencies
 node_modules/
+
+# Python (not used)
+venv/
+get-pip.py
+__pycache__/
+*.pyc
 
 # OS Files
 .DS_Store
