@@ -1,0 +1,106 @@
+{
+  "debug_report": {
+    "timestamp": "2026-02-19T09:06:59Z",
+    "version": "3.0",
+    "overall_status": "DEGRADED",
+    "summary": "Bot is running but experiencing intermittent crashes due to null pointer errors in balance display"
+  },
+  "subsystem_results": {
+    "code_integrity": {
+      "status": "PASS",
+      "details": "Syntax check passed, no parse errors"
+    },
+    "dependency_validation": {
+      "status": "PASS",
+      "details": "All 6 dependencies installed and valid",
+      "packages": ["@project-serum/anchor@0.26.0", "@solana/web3.js@1.98.4", "axios@1.13.5", "bs58@6.0.0", "dotenv@17.3.1", "ws@8.19.0"]
+    },
+    "api_connections": {
+      "telegram": {"status": "PASS", "response_time": "fast"},
+      "dexscreener": {"status": "PASS", "response_time": "fast"},
+      "solana_rpc": {"status": "PASS", "response": "ok"},
+      "jupiter": {"status": "FAIL", "error": "Connection timeout/blocked", "impact": "Swaps will fail"}
+    },
+    "environment_variables": {
+      "status": "PASS",
+      "TELEGRAM_TOKEN": "configured",
+      "REVENUE_WALLET": "configured"
+    },
+    "error_logs": {
+      "status": "CRITICAL",
+      "errors_found": [
+        "Poll error: read ECONNRESET",
+        "Poll error: Cannot read properties of undefined (reading 'toFixed')"
+      ],
+      "occurrence_count": 3
+    },
+    "memory_usage": {
+      "status": "OK",
+      "pid": 10045,
+      "memory_mb": 86,
+      "cpu_percent": 0
+    },
+    "security_scan": {
+      "status": "PASS",
+      "checks": {
+        "no_hardcoded_secrets": true,
+        "env_in_gitignore": true,
+        "wallets_in_gitignore": true,
+        "sensitive_files_excluded": true
+      }
+    }
+  },
+  "issues": [
+    {
+      "severity": "CRITICAL",
+      "category": "Null Pointer",
+      "location": "index.js:251 (sendWalletMenu)",
+      "description": "balance.toFixed(3) called without null check - if getBalance returns undefined, bot crashes",
+      "root_cause": "Network timeouts can cause getBalance to throw before returning 0",
+      "fix": "Change to: (balance || 0).toFixed(3)"
+    },
+    {
+      "severity": "HIGH",
+      "category": "Network",
+      "location": "Jupiter API integration",
+      "description": "Jupiter API connection failing - swaps will not execute",
+      "root_cause": "Possible rate limiting or network restriction in sandbox",
+      "fix": "Add fallback RPC or proxy configuration"
+    },
+    {
+      "severity": "HIGH",
+      "category": "Error Handling",
+      "location": "index.js:196 (DexScreener catch)",
+      "description": "Empty catch block silently swallows errors",
+      "root_cause": "No error logging when DexScreener fails",
+      "fix": "Add console.log in catch block for debugging"
+    },
+    {
+      "severity": "MEDIUM",
+      "category": "ECONNRESET",
+      "location": "Network layer",
+      "description": "Intermittent connection resets to Telegram API",
+      "root_cause": "Long polling timeout or network instability",
+      "fix": "Add retry logic with exponential backoff"
+    },
+    {
+      "severity": "LOW",
+      "category": "Performance",
+      "location": "sendWalletMenu (line 247)",
+      "description": "Sequential balance checks for 5 wallets = 5 RPC calls",
+      "root_cause": "No parallelization",
+      "fix": "Use Promise.all for concurrent balance fetching"
+    }
+  ],
+  "stability_assessment": {
+    "current_state": "Running but crash-prone",
+    "uptime_risk": "High - will crash on wallet menu access",
+    "functionality": "Dashboard works, wallet menu crashes, swaps blocked by Jupiter"
+  },
+  "recommended_actions": [
+    "IMMEDIATE: Fix null check on line 251",
+    "HIGH: Investigate Jupiter API connectivity",
+    "MEDIUM: Add error logging to catch blocks",
+    "LOW: Optimize parallel balance fetching"
+  ]
+}

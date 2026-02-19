@@ -206,7 +206,9 @@ const sendDashboard = async (chatId, userId, ca) => {
             stats.burned = (p.dexId === 'pump' || p.liquidity?.base === 0) ? "✅" : "❌";
             stats.priceChange = p.priceChange?.h24 || 0;
         }
-    } catch(e) {}
+    } catch(e) {
+        console.log("DexScreener error:", e.message);
+    }
 
     const arrow = stats.priceChange >= 0 ? '🟢' : '🔴';
     
@@ -248,7 +250,7 @@ const sendWalletMenu = async (chatId, userId) => {
     for (const w of userData.wallets) {
         const balance = await getBalance(w.publicKey);
         const mark = w.active ? '✅ ' : '     ';
-        msg += `${mark}*W${w.index}:* \`${w.publicKey.slice(0,6)}...${w.publicKey.slice(-4)}\` | \`${balance.toFixed(3)} SOL\`\n`;
+        msg += `${mark}*W${w.index}:* \`${w.publicKey.slice(0,6)}...${w.publicKey.slice(-4)}\` | \`${(balance || 0).toFixed(3)} SOL\`\n`;
         kb.inline_keyboard.push([
             { text: w.active ? `✅ W${w.index} Active` : `Select W${w.index}`, callback_data: `sel_w_${w.index}` },
             { text: `🔑 Export`, callback_data: `exp_w_${w.index}` }
@@ -599,7 +601,9 @@ const poll = async () => {
             }
         } catch (e) { 
             console.log("Poll error:", e.message);
-            await new Promise(r => setTimeout(r, 2000)); 
+            // Exponential backoff for network errors
+            const delay = e.code === 'ECONNRESET' ? 5000 : 2000;
+            await new Promise(r => setTimeout(r, delay)); 
         }
     }
 };
