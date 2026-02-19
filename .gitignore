@@ -1,0 +1,27 @@
+# Sensitive Data - NEVER COMMIT
+users_wallets.json
+*.env
+.env.*
+
+# Private Keys & Wallets
+*.key
+*.pem
+secrets/
+
+# Logs
+*.log
+bot.log
+output.log
+
+# Dependencies
+node_modules/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
