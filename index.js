@@ -212,8 +212,12 @@ const sendDashboard = async (chatId, userId, ca) => {
 
     const arrow = stats.priceChange >= 0 ? '🟢' : '🔴';
     
+    // Sanitize token name/symbol for Markdown
+    const safeName = stats.name.replace(/[*_`\[\]]/g, '');
+    const safeSym = stats.sym.replace(/[*_`\[\]]/g, '');
+    
     const text = 
-`💎 *${stats.name} ($${stats.sym})*
+`💎 ${safeName} (${safeSym})
 📍 \`${ca}\`
 
 💰 *Price:* \`$${Number(stats.price).toFixed(8)}\` ${arrow} ${stats.priceChange.toFixed(1)}%
@@ -221,7 +225,7 @@ const sendDashboard = async (chatId, userId, ca) => {
 💧 *Pooled:* \`${stats.pooled} SOL\` | 🔥 *Burned:* ${stats.burned}
 
 💳 *Wallet:* \`W${wallet.index}\`
-💰 *SOL:* \`${(balance || 0).toFixed(4)}\` | 🪙 *${stats.sym}:* \`${(tokenBalance || 0).toFixed(2)}\`
+💰 *SOL:* \`${(balance || 0).toFixed(4)}\` | 🪙 ${safeSym}: \`${(tokenBalance || 0).toFixed(2)}\`
 ⚙️ *Slip:* \`${userData.settings.slippage}%\` | *Fee:* \`${userData.settings.priorityFee} SOL\`
 
 ---
@@ -250,7 +254,8 @@ const sendWalletMenu = async (chatId, userId) => {
     for (const w of userData.wallets) {
         const balance = await getBalance(w.publicKey);
         const mark = w.active ? '✅ ' : '     ';
-        msg += `${mark}*W${w.index}:* \`${w.publicKey.slice(0,6)}...${w.publicKey.slice(-4)}\` | \`${(balance || 0).toFixed(3)} SOL\`\n`;
+        const shortKey = w.publicKey.slice(0,6) + '...' + w.publicKey.slice(-4);
+        msg += `${mark}W${w.index}: \`${shortKey}\` | ${(balance || 0).toFixed(3)} SOL\n`;
         kb.inline_keyboard.push([
             { text: w.active ? `✅ W${w.index} Active` : `Select W${w.index}`, callback_data: `sel_w_${w.index}` },
             { text: `🔑 Export`, callback_data: `exp_w_${w.index}` }
