@@ -1,3 +1,5 @@
+module.exports = (req, res) => {
+  res.status(200).send(`
 <!DOCTYPE html>
 <html>
 <head><title>MiintRadar Bot</title></head>
@@ -9,3 +11,5 @@
 </div>
 </body>
 </html>
+  `);
+};
