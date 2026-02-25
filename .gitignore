@@ -1,29 +1,36 @@
-# Sensitive Data - NEVER COMMIT
-users_wallets.json
-.env
-wallet.json
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Logs
-*.log
-bot.log
-bot_output.log
-output.log
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# Dependencies
-node_modules/
+# testing
+/coverage
 
-# Python (not used)
-venv/
-get-pip.py
-__pycache__/
-*.pyc
+# next.js
+/.next/
+/out/
 
-# OS Files
+# production
+/build
+
+# misc
 .DS_Store
-Thumbs.db
+*.pem
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

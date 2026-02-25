@@ -1,0 +1,45 @@
+{
+  "8081265682": {
+    "wallets": [
+      {
+        "index": 1,
+        "publicKey": "9BGRQdQkV86qyHeEfqDGyRMbBcK3wvxqeghz9qrno39X",
+        "secretKey": "42VLvMbG58mNQkB6Uvr6PCqz4q1g7M74HxdDTqsW8nFstYHSCiku5sNFZTcziPpd48RbArLEtuBAe2urUBD65zBX",
+        "active": true
+      },
+      {
+        "index": 2,
+        "publicKey": "CVNZ8kkFfBQZJsYSKX5RTuEQ5xthH61mY4VVVi8eA6p8",
+        "secretKey": "2wpmtG6J4aDx6wEw5SLy6g4gR25XLmJJqEVzd7To4DZmHYseaxJF8ABqhf9ZXchFm5XZ6mfnphL3U2KYAbBhvDJg",
+        "active": false
+      },
+      {
+        "index": 3,
+        "publicKey": "FR7sUBc6JPfV4At8njbfWC6r2F95Uq91VzHPSgA3QT9m",
+        "secretKey": "4b8RzcUTpxswDAYpbNwA6wEyR1NxCk1SvVNCWehK5LJ8tkBtCM6SZGw7VjmiUCJhcytRPZBhhx7ftUUZctWmRMRV",
+        "active": false
+      },
+      {
+        "index": 4,
+        "publicKey": "fatUg5bsTAciXLcLgvmQxzG3yMHNGJYHaR36pWmagcS",
+        "secretKey": "2CBC6FLw5czGak6KQb8yi9QbXCcghq2ouNWMWSuuJMjUQU2uRupYYab2yrKFFcp3yJoeSBR7yFapuUZpMqmdcMfg",
+        "active": false
+      },
+      {
+        "index": 5,
+        "publicKey": "6V56ER1DukHRw6K5BHhocNmBLbdAjDzLWoHXNX7zgix4",
+        "secretKey": "4pxoYunGLEHHkAvXpGGbYZQo66ePbbs91wvVq4QxMKfTbVCq6hsmkxnmM74WRjFoV6Q3FU3aRcQ8KpBCHwcC6mRn",
+        "active": false
+      }
+    ],
+    "settings": {
+      "slippage": 15,
+      "priorityFee": 0.001
+    },
+    "referralId": "96v04",
+    "totalBonus": 0,
+    "totalTrades": 0,
+    "totalVolume": 0,
+    "waitingFor": null
+  }
+}

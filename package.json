@@ -1,19 +1,36 @@
 {
-  "name": "miintradar-bot",
-  "version": "3.2.0",
-  "description": "MiintRadar Telegram Bot - Solana Trading",
-  "main": "api/webhook.js",
+  "name": "miintswap",
+  "version": "1.0.0",
+  "description": "MiintSwap - Beautiful Solana Token Swap",
+  "private": true,
   "scripts": {
-    "start": "node index.js",
-    "vercel-dev": "vercel dev"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@solana/web3.js": "^1.95.0",
-    "axios": "^1.6.0",
-    "bs58": "^5.0.0",
-    "dotenv": "^16.3.1"
+    "@jup-ag/api": "^6.0.30",
+    "@solana/spl-token": "^0.4.8",
+    "@solana/web3.js": "^1.98.0",
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/wallet-adapter-wallets": "^0.19.26",
+    "next": "15.1.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.0"
   },
-  "engines": {
-    "node": ">=18"
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "15.1.6"
   }
 }
